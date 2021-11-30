@@ -23,6 +23,12 @@ public class Pessoa {
         this.dataNasc = dataNasc;
     }
 
+    protected Pessoa(String nome, String cpf, Date dataNasc) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+    }
+
     // Criação dos setters e getters
     public void setId(int id) {
         this.id = id;
