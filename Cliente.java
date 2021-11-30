@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class Cliente extends Pessoa {
         int id,
         String nome,
         String cpf,
-        String dataNasc,
+        Date dataNasc,
         String telefone
     ){
         super(id, nome, cpf, dataNasc); // Informando que os dados descritos vem da superclasse Pessoa

@@ -137,6 +137,7 @@ public class Principal {
             System.out.println("2. Insert Chefs");
             System.out.println("3. Update Chefs");
             System.out.println("4. Delete Chefs");
+            System.out.println("\nDigite a opção desejada: ");
             try {
                 menu = scan.nextInt();
             } catch (Exception e) {
@@ -145,19 +146,41 @@ public class Principal {
 
             switch (menu) {
                 case 1:
-                    
+                    try {
+                        Chef.SelectChef();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                     
                 case 2:
-
+                    try {
+                        Chef.InsertChef(
+                            Chef.getChefInsert()
+                        );
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 3:
-
+                    try {
+                        Chef.updateChefSt(
+                            Chef.getChefUpdate()
+                        );
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 4:
-
+                    try {
+                        Chef.deleteChefSt(
+                            Chef.getChef()
+                        );
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                     break;
 
                 default:
@@ -165,6 +188,6 @@ public class Principal {
             }
 
         } while (menu != 0);
-
+        scan.close();
     }
 }
