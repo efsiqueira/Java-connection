@@ -29,7 +29,6 @@ public class Receita {
         this.etapas = etapas;
         this.nrEtapas = nrEtapas;
         this.valor = valor;
-        this.chef = chef;
         chef.setReceitas(this);
     }
 
