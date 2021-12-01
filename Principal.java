@@ -1,25 +1,25 @@
 import java.util.Scanner;
 
 public class Principal {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        Chef chefUm = Chef.idChef(3);
+        Chef chefDois = Chef.idChef(4);
+        Chef chefTres = Chef.idChef(5);
+
+        Cliente clienteUm = Cliente.idCliente(1);
+        Cliente clienteDois = Cliente.idCliente(2);
+        Cliente clienteTres = Cliente.idCliente(3);
         
         // Criação dos objetos das classes
-        /*Padaria padariaUm = new Padaria (1, "Padaria Alfa", "01/01/1995", 1, "89320-452", "Rua José Manoel Voluz", "772", "Sítio Cercado", "Curitiba", "07:30 às 19:00");
+        Padaria padariaUm = new Padaria (1, "Padaria Alfa", "01/01/1995", 1, "89320-452", "Rua José Manoel Voluz", "772", "Sítio Cercado", "Curitiba", "07:30 às 19:00");
         Padaria padariaDois = new Padaria (2, "Padaria Anita", "10/10/2017", 2, "89478-791", "Rua Anita", "222", "Anita Garibaldi", "Joinville", "08:00 às 18:00");
         Padaria padariaTres = new Padaria (3, "Padaria Helena", "02/07/2004", 3, "89521-785", "Rua Monsenhor Gercino", "1000", "João Costa", "Joinville", "07:30 às 19:30");
 
         Mercado mercadoUm = new Mercado(1, "Mercado Del Piero", "05/04/1995", 4, "89421-542", "Rua Getulio Vargas", "144", "Anita Garibaldi", "Joinville", "Costela de porco, Alcatra e Linguiça toscana");
         Mercado mercadoDois = new Mercado(2, "Mercado da Vila", "08/11/2017", 5, "89325-915", "Rua Paraíba", "752", "Anita Garibaldi", "Joinville", "Leite Parmalat, Achocolatado Nescau e Biscoito Negresco");
         Mercado mercadoTres = new Mercado(3, "Mercado Bosque", "17/02/2011", 6, "89142-126", "Rua Albano Schmidt", "815", "Boa Vista", "Joinville", "Fralda Pampers, Lenço Umidecido e Leite Nan");
-
-        Chef chefUm = new Chef (1, "Érick Jacquin", "84562139805", "09/12/1964", "Pão de queijo");
-        Chef chefDois = new Chef (2, "Henrique Fogaça", "14536789564", "11/04/1974", "Bolinho de carne");
-        Chef chefTres = new Chef (3, "Paola Carosella", "25893641781", "30/10/1972", "Pastel assado");
-
-        Cliente clienteUm = new Cliente(1, "Eduardo Siqueira", "19535785246", "05/01/2000", "(47) 9 9999-9999");
-        Cliente clienteDois = new Cliente(2, "Antonio Pereira", "75412359752", "13/08/1994", "(47) 9 9970-7070");
-        Cliente clienteTres = new Cliente(3, "Marcos Costa", "45168925934", "31/10/1997", "(41) 9 9891-1234");
-
+        
         Receita receitaUm = new Receita(1, "Sonho", "Junte os ingredientes, acrescente farinha, adicione ovos e misture, divida a massa em bolinhas, leve a geladeira, asse por 20 mintuos", 6, 25.00, chefUm);
         Receita receitaDois = new Receita(2, "Bolo de aipim", "Bata os ingredientes no liquidificador, despeje numa tigela e adicione fermento, misture até a massa ficar homogenea, asse por 40 minutos", 4, 30.00, chefUm);
         Receita receitaTres = new Receita(3, "Pão de queijo", "Bata os ingredientes no liquidificador, acrescente queijo a gosto, bata até ficar homogeneo, despeje numa forma e leve para assar, asse por 40 minutos", 5, 4.00, chefUm);
@@ -94,40 +94,7 @@ public class Principal {
         mercadoTres.setReceitas(receitaOito);
         mercadoTres.setReceitas(receitaNove);
         mercadoTres.setReceitas(receitaDez);
-
-        // Printando as entidades.
-        System.out.println();
-        System.out.println("==================== CLIENTES ====================");
-        System.out.println(clienteUm);
-        System.out.println();
-        System.out.println(clienteDois);
-        System.out.println();
-        System.out.println(clienteTres);
         
-
-        System.out.println();
-        System.out.println("==================== CHEFS ====================");
-        System.out.println(chefUm);
-        System.out.println();
-        System.out.println(chefDois);
-        System.out.println();
-        System.out.println(chefTres);
-
-        System.out.println();
-        System.out.println("==================== PADARIAS ====================");
-        System.out.println(padariaUm);
-        System.out.println();
-        System.out.println(padariaDois);
-        System.out.println();
-        System.out.println(padariaTres);
-
-        System.out.println();
-        System.out.println("==================== MERCADOS ====================");
-        System.out.println(mercadoUm);
-        System.out.println();
-        System.out.println(mercadoDois);
-        System.out.println();
-        System.out.println(mercadoTres);*/
         int menu = 0;
         Scanner scan = new Scanner(System.in);
 
@@ -137,6 +104,12 @@ public class Principal {
             System.out.println("2. Insert Chefs");
             System.out.println("3. Update Chefs");
             System.out.println("4. Delete Chefs");
+            System.out.println("5. Select Cliente");
+            System.out.println("6. Insert Cliente");
+            System.out.println("7. Update Cliente");
+            System.out.println("8. Delete Cliente");
+            System.out.println("9. Select Padarias");
+            System.out.println("10. Select Mercados");
             System.out.println("\nDigite a opção desejada: ");
             try {
                 menu = scan.nextInt();
@@ -156,7 +129,7 @@ public class Principal {
                 case 2:
                     try {
                         Chef.InsertChef(
-                            Chef.getChefInsert()
+                            Chef.getChefInsert(scan)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -166,7 +139,7 @@ public class Principal {
                 case 3:
                     try {
                         Chef.updateChefSt(
-                            Chef.getChefUpdate()
+                            Chef.getChefUpdate(scan)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -176,10 +149,76 @@ public class Principal {
                 case 4:
                     try {
                         Chef.deleteChefSt(
-                            Chef.getChef()
+                            Chef.getChef(scan)
                         );
                     } catch (Exception e) {
-                        //TODO: handle exception
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 5:
+                    try {
+                        Cliente.SelectCliente();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 6:
+                    try {
+                        Cliente.InsertCliente(
+                            Cliente.getClienteInsert(scan)
+                        );
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 7:
+                    try {
+                        Cliente.updateClienteSt(
+                            Cliente.getClienteUpdate(scan)
+                        );
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 8:
+                    try {
+                        Cliente.deleteClienteSt(
+                            Cliente.getCliente(scan)
+                        );
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                
+                case 9:
+                    try {
+                        System.out.println();
+                        System.out.println("==================== PADARIAS ====================");
+                        System.out.println(padariaUm);
+                        System.out.println();
+                        System.out.println(padariaDois);
+                        System.out.println();
+                        System.out.println(padariaTres);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 10:
+                    try {
+                        System.out.println();
+                        System.out.println("==================== MERCADOS ====================");
+                        System.out.println(mercadoUm);
+                        System.out.println();
+                        System.out.println(mercadoDois);
+                        System.out.println();
+                        System.out.println(mercadoTres);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
 
