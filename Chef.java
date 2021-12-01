@@ -137,12 +137,13 @@ public class Chef extends Pessoa{
         }
     }
 
+    // Insert
     public static void InsertChef(Chef chef) {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement stm = con.prepareStatement("INSERT INTO chef "
-                            + "(nome, cpf, dtnasc, especialidade) VALUES "
-                            + "(?,?,?,?", PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement stm = con.prepareStatement(
+                "INSERT INTO chef (nome, cpf, dtnasc, especialidade) VALUES (?,?,?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS);
             
             stm.setString(1, chef.getNome());
             stm.setString(2, chef.getCpf());
@@ -153,33 +154,34 @@ public class Chef extends Pessoa{
                 ResultSet rs = stm.getGeneratedKeys();
 
                 if(rs.next()) {
+                    ResultSet queryRs = con.createStatement().executeQuery("SELECT * FROM chef WHERE id = " + rs.getInt(1));
+                    queryRs.next();
                     System.out.println(new Chef(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getDate("dtnasc"),
-                        rs.getString("especialidade")
+                        queryRs.getString("nome"),
+                        queryRs.getString("cpf"),
+                        queryRs.getDate("dtnasc"),
+                        queryRs.getString("especialidade")
                     ));
                 }
             }
             con.close();
+
+            System.out.println("\nDados inseridos com sucesso!");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static Chef getChefInsert() {
-        Scanner scan = new Scanner(System.in);
+    public static Chef getChefInsert(Scanner scan) {
         System.out.print("Informe o nome do chef: ");
-        String nome = scan.nextLine();
+        String nome = scan.next();
         System.out.print("Informe o cpf do chef: ");
-        String cpf = scan.nextLine();
+        String cpf = scan.next();
         System.out.print("Informe a data de nascimento do chef: ");
-        String dataNasc = scan.nextLine();
+        String dataNasc = scan.next();
         System.out.print("Informe a especialidade do chef: ");
-        String especialidade = scan.nextLine();
-        scan.close();
+        String especialidade = scan.next();
 
         return new Chef(
             nome,
@@ -189,29 +191,29 @@ public class Chef extends Pessoa{
         );
     }
 
+
+    // Update
     public static void updateChefSt(Chef chef) {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.execute("UPDATE chef SET "
+            stm.execute("UPDATE chef SET "
                 + " nome = '" + chef.getNome() + "'"
                 + ", cpf = '" + chef.getCpf() + "'"
                 + ", dtnasc = '" + chef.getDataNasc() + "'"
                 + ", especialidade = '" + chef.getEspecialidade() + "'"
                 + " WHERE id = " + chef.getId());
-            if(!sql) {
-                System.out.println("Falha na execução");
-            }
+
+            System.out.println("\nDados atualizados com sucesso!");
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static Chef getChefUpdate() throws Exception {
+    public static Chef getChefUpdate(Scanner scan) throws Exception {
         try {
-            Scanner scan = new Scanner(System.in);
-            Chef chef = Chef.getChef();
+            Chef chef = Chef.getChef(scan);
             System.out.println("Informe o nome do chef: ");
             String nome = scan.next();
             if(nome.length() > 0) {
@@ -232,17 +234,15 @@ public class Chef extends Pessoa{
             if(especialidade.length() > 0) {
                 chef.setEspecialidade(especialidade);
             }
-            scan.close();
             return chef;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    public static Chef getChef() throws Exception {
+    public static Chef getChef(Scanner scan) throws Exception {
         try {
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Informe o Id de exclusão: ");
+            System.out.println("Informe o Id de alteração/exclusão: ");
             int id = scan.nextInt();
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
@@ -251,7 +251,6 @@ public class Chef extends Pessoa{
             if(!rs.next()) {
                 throw new Exception("Id inválido");
             }
-            scan.close();
             return new Chef(
                 rs.getInt("id"),
                 rs.getString("nome"),
@@ -269,14 +268,31 @@ public class Chef extends Pessoa{
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.execute("DELETE FROM chef "
+            stm.execute("DELETE FROM chef "
                 + " WHERE id = " + chef.getId());
-            if(!sql) {
-                System.out.println("Falha na execução");
-            }
+            
+            System.out.println("\nDados excluídos com sucesso!");
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static Chef idChef(int id) throws Exception {
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM chef WHERE id = " + id);
+            rs.next();
+            Chef chefUm = new Chef(
+                rs.getInt("id"),
+                rs.getString("nome"),
+                rs.getString("cpf"),
+                rs.getDate("dtnasc"),
+                rs.getString("especialidade")
+            );
+            return chefUm;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
     }
 
