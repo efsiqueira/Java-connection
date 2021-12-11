@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import model.Golfinho;
 import model.Leao;
 
 
@@ -47,6 +48,34 @@ public class JanelaPrincipal extends JFrame{
         botaoAtualizarLeao.addActionListener(editLeaoAction);
         botaoRemoverLeao.addActionListener(removeLeaoAction);
 
+        ActionListener addGolfinhoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonAddGolfinhoActionPerformed(e);
+            }
+        };
+
+        ActionListener showGolfinhoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonMostraGolfinhoActionPerformed(e);
+            }
+        };
+
+        ActionListener editGolfinhoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonEditaGolfinhoAction(e);
+            }
+        };
+
+        ActionListener removeGolfinhoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonRemoveGolfinhoAction(e);
+            }
+        };
+        botaoAddGolfinho.addActionListener(addGolfinhoAction);
+        botaoMostrarGolfinho.addActionListener(showGolfinhoAction);
+        botaoAtualizarGolfinho.addActionListener(editGolfinhoAction);
+        botaoRemoverGolfinho.addActionListener(removeGolfinhoAction);
+
         Container pane = this.getContentPane();
         pane.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -71,7 +100,6 @@ public class JanelaPrincipal extends JFrame{
     }
 
     private void buttonMostraLeaoActionPerformed(ActionEvent e) {
-        //new InfoIdLeao();
         String option = JOptionPane.showInputDialog(this, "Insira o ID do Leão");
         if (option != null && !option.isEmpty()) {
             try {
@@ -104,6 +132,54 @@ public class JanelaPrincipal extends JFrame{
                 );
                 if(ret == JOptionPane.YES_OPTION) {
                     Leao.deleteLeao(Integer.parseInt(option));
+                    JOptionPane.showMessageDialog(this, "Operação realizada.", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Operação cancelada.", "CANCELADO", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(this, "Não foi possível localizar o leão. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // Golfinho
+    private void buttonAddGolfinhoActionPerformed(ActionEvent e) {
+        new AdicionarGolfinho();
+    }
+
+    private void buttonMostraGolfinhoActionPerformed(ActionEvent e) {
+        String option = JOptionPane.showInputDialog(this, "Insira o ID do Golfinho");
+        if (option != null && !option.isEmpty()) {
+            try {
+                Golfinho golfinho = Golfinho.selectGolfinho(Integer.parseInt(option));
+                new MostrarGolfinho(golfinho);
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(this, "Não foi possível localizar o leão. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }
+
+    private void buttonEditaGolfinhoAction(ActionEvent e) {
+        new EditarGolfinho();
+    }
+
+    private void buttonRemoveGolfinhoAction(ActionEvent e) {
+        String option = JOptionPane.showInputDialog(
+            this,
+            "Insira o ID de exlcusão"
+        );
+        if (option != null && !option.isEmpty()) {
+            try {
+                int ret = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja excluir?",
+                    "Excluir",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+                );
+                if(ret == JOptionPane.YES_OPTION) {
+                    Golfinho.deleteGolfinho(Integer.parseInt(option));
                     JOptionPane.showMessageDialog(this, "Operação realizada.", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Operação cancelada.", "CANCELADO", JOptionPane.INFORMATION_MESSAGE);
