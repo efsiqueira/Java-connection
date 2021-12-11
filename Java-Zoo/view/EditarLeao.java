@@ -40,7 +40,7 @@ public class EditarLeao extends JFrame {
                 buttonCancelaActionPerformed(e);
             }
         };
-        bAlterar.addActionListener(cancelarLeaoAction);
+        bCancelar.addActionListener(cancelarLeaoAction);
 
         Container pane = this.getContentPane();
         pane.setLayout(new FlowLayout(FlowLayout.LEFT));

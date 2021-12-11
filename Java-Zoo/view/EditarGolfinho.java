@@ -36,7 +36,7 @@ public class EditarGolfinho extends JFrame {
                 buttonCancelaActionPerformed(e);
             }
         };
-        bAlterar.addActionListener(cancelarGolfinhoAction);
+        bCancelar.addActionListener(cancelarGolfinhoAction);
 
         Container pane = this.getContentPane();
         pane.setLayout(new FlowLayout(FlowLayout.LEFT));
