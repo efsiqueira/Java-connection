@@ -2,10 +2,9 @@ package view;
 
 
 import javax.swing.*;
-
 import model.Leao;
-
 import java.awt.*;
+import java.awt.event.*;
 
 public class MostrarLeao extends JFrame{
     JLabel lIdLeao;
@@ -18,6 +17,7 @@ public class MostrarLeao extends JFrame{
     JTextField tAlimentacao;
     JTextField tVisitantes;
     JTextField tDescricaoJaula;
+    JButton bOkLeao = new JButton("OK");
 
     public MostrarLeao(Leao leao) {
         lIdLeao = new JLabel("Id do leão", JLabel.LEFT);
@@ -26,12 +26,19 @@ public class MostrarLeao extends JFrame{
         lVisitantes = new JLabel("Visitantes do leão", JLabel.LEFT);
         lDescricaoJaula = new JLabel("Descrição da jaula", JLabel.LEFT);
 
-        tIdLeao = new JTextField(5);
-        tNomeLeao = new JTextField(20);
-        tAlimentacao = new JTextField(5);
-        tVisitantes = new JTextField(5);
-        tDescricaoJaula = new JTextField(20);
+        tIdLeao = new JTextField(15);
+        tNomeLeao = new JTextField(15);
+        tAlimentacao = new JTextField(15);
+        tVisitantes = new JTextField(15);
+        tDescricaoJaula = new JTextField(15);
         
+        ActionListener okLeaoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonOkActionPerformed(e);
+            }
+        };
+        bOkLeao.addActionListener(okLeaoAction);
+
         Container pane = this.getContentPane();
         pane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -45,14 +52,20 @@ public class MostrarLeao extends JFrame{
         pane.add(tVisitantes);
         pane.add(lDescricaoJaula);
         pane.add(tDescricaoJaula);
+        pane.add(bOkLeao);
 
-        leao.setId(Integer.parseInt(tIdLeao.getText()));
-        leao.setNome(tNomeLeao.getText());
-        leao.setAlimentacao(Integer.parseInt(tAlimentacao.getText()));
-        leao.setVisitantes(Integer.parseInt(tVisitantes.getText()));
+        tIdLeao.setText(Integer.toString(leao.getId()));
+        tNomeLeao.setText(leao.getNome());
+        tAlimentacao.setText(Integer.toString(leao.getAlimentacao()));
+        tVisitantes.setText(Integer.toString(leao.getVisitantes()));
+        tDescricaoJaula.setText(leao.getJaula().getDescricao());
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(250,260);
+        this.setSize(195,305);
         this.setVisible(true);
+    }
+
+    private void buttonOkActionPerformed(ActionEvent e) {
+        this.dispose();
     }
 }

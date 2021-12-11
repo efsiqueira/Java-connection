@@ -65,10 +65,6 @@ public class AdicionarLeao extends JFrame{
     }
 
     private void buttonConfirmaActionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(
-            null, 
-            "Dados inseridos com Sucesso"
-        );
         Leao.insertLeao(
             new Leao(
                 this.tNomeLeao.getText(),
@@ -76,6 +72,10 @@ public class AdicionarLeao extends JFrame{
                 Integer.parseInt(this.tAlimentacao.getText()),
                 Integer.parseInt(this.tVisitantes.getText())
             )
+        );
+        JOptionPane.showMessageDialog(
+            null, 
+            "Dados inseridos com Sucesso!"
         );
         this.tNomeLeao.setText("");
         this.tDescricaoJaula.setText("");

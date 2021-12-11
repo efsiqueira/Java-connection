@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import model.Leao;
+
 
 public class JanelaPrincipal extends JFrame{
 
@@ -69,14 +71,46 @@ public class JanelaPrincipal extends JFrame{
     }
 
     private void buttonMostraLeaoActionPerformed(ActionEvent e) {
-        new InfoIdLeao();
+        //new InfoIdLeao();
+        String option = JOptionPane.showInputDialog(this, "Insira o ID do Leão");
+        if (option != null && !option.isEmpty()) {
+            try {
+                Leao leao = Leao.selectLeao(Integer.parseInt(option));
+                new MostrarLeao(leao);
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(this, "Não foi possível localizar o leão. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
     }
 
     private void buttonEditaLeaoAction(ActionEvent e) {
-
+        new EditarLeao();
     }
 
     private void buttonRemoveLeaoAction(ActionEvent e) {
-
+        String option = JOptionPane.showInputDialog(
+            this,
+            "Insira o ID de exlcusão"
+        );
+        if (option != null && !option.isEmpty()) {
+            try {
+                int ret = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja excluir?",
+                    "Excluir",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+                );
+                if(ret == JOptionPane.YES_OPTION) {
+                    Leao.deleteLeao(Integer.parseInt(option));
+                    JOptionPane.showMessageDialog(this, "Operação realizada.", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Operação cancelada.", "CANCELADO", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(this, "Não foi possível localizar o leão. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }
