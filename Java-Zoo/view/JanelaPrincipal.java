@@ -95,6 +95,7 @@ public class JanelaPrincipal extends JFrame{
         
     }
 
+    // Leão
     private void buttonAddLeaoActionPerformed(ActionEvent e) {
         new AdicionarLeao();
     }
@@ -154,7 +155,7 @@ public class JanelaPrincipal extends JFrame{
                 Golfinho golfinho = Golfinho.selectGolfinho(Integer.parseInt(option));
                 new MostrarGolfinho(golfinho);
             } catch (Exception err) {
-                JOptionPane.showMessageDialog(this, "Não foi possível localizar o leão. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Não foi possível localizar o golfinho. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -185,7 +186,7 @@ public class JanelaPrincipal extends JFrame{
                     JOptionPane.showMessageDialog(this, "Operação cancelada.", "CANCELADO", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception err) {
-                JOptionPane.showMessageDialog(this, "Não foi possível localizar o leão. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Não foi possível localizar o golfinho. " + err.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
