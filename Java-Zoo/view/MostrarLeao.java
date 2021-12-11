@@ -60,6 +60,12 @@ public class MostrarLeao extends JFrame{
         tVisitantes.setText(Integer.toString(leao.getVisitantes()));
         tDescricaoJaula.setText(leao.getJaula().getDescricao());
 
+        tIdLeao.setEditable(false);
+        tNomeLeao.setEditable(false);
+        tAlimentacao.setEditable(false);
+        tVisitantes.setEditable(false);
+        tDescricaoJaula.setEditable(false);
+
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(195,305);
         this.setVisible(true);
