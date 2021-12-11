@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.Scanner;
 
-import view.MostrarLeao;
-
 public class Leao extends Animal {
     
     private int alimentacao;
@@ -45,6 +43,12 @@ public class Leao extends Animal {
 
     public Leao(String nome, int idJaula, String descricao, int alimentacao, int visitantes) {
         super(nome, idJaula, descricao);
+        this.alimentacao = alimentacao;
+        this.visitantes = visitantes;
+    }
+
+    public Leao(int id, String nome, int alimentacao, int visitantes) {
+        super(id, nome);
         this.alimentacao = alimentacao;
         this.visitantes = visitantes;
     }
@@ -94,27 +98,29 @@ public class Leao extends Animal {
 
     }
 
-    public static void selectLeao(int id) {
+    public static Leao selectLeao(int id) throws Exception {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM Leao l LEFT JOIN Jaula j ON (j.id = l.jaula_id) WHERE id = " + id);
-            while(rs.next()) {
+            ResultSet rs = stm.executeQuery("SELECT * FROM Leao l LEFT JOIN Jaula j ON (j.id = l.jaula_id) WHERE l.id = " + id);
+            if(rs.next()) {
                 
-                new MostrarLeao(new Leao(
+                Leao leao = new Leao(
                     rs.getInt("id"),
                     rs.getString("nome"),
                     rs.getInt("jaula_id"),
                     rs.getString("descricao"),
                     rs.getInt("alimentacao"),
                     rs.getInt("visitantes")
-                ));
+                );
                 
                 con.close();
+                return leao;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        throw new Exception("Leão não encontrado");
     }
 
     public static void insertLeao(Leao leao) {
@@ -152,40 +158,14 @@ public class Leao extends Animal {
                     ResultSet queryJaula = con.createStatement().executeQuery("SELECT * FROM jaula WHERE id = " + idJaula);
                     queryJaula.next();
 
-                    /*new Leao(
-                        queryLeao.getString("nome"),
-                        queryJaula.getInt("id"),
-                        queryJaula.getString("descricao"),
-                        queryLeao.getInt("alimentacao"),
-                        queryLeao.getInt("visitantes")
-                    );*/
                 }
             }
             con.close();
-            System.out.println("\nDados inseridos com sucesso!");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-
-    /*public static Leao getLeaoInsert(Scanner scan) {
-        System.out.print("Informe o nome do leão: ");
-        String nome = scan.next();
-        System.out.print("Informe a alimentação do leão: ");
-        int alimentacao = scan.nextInt();
-        System.out.print("Informe os visitantes do leão: ");
-        int visitantes = scan.nextInt();
-        System.out.print("Informe a jaula: ");
-        String descricao = scan.next();
-
-        return new Leao(
-            nome,
-            descricao,
-            alimentacao,
-            visitantes
-        );
-    }*/
 
     public static void updateLeao(Leao leao) {
         try {
@@ -194,86 +174,23 @@ public class Leao extends Animal {
             stm.execute("UPDATE Leao SET "
                 + " nome = '" + leao.getNome() + "'"
                 + ", alimentacao = '" + leao.getAlimentacao() + "'"
-                + ", visitantes = '" + leao.getVisitantes());
+                + ", visitantes = '" + leao.getVisitantes() + "' WHERE id = " + leao.getId());
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static Leao getLeaoUpdate(Scanner scan) throws Exception {
-        try {
-            Leao leao = Leao.getLeao(scan);
-            System.out.println("Informe o nome do Leao: ");
-            String nome = scan.next();
-            if(nome.length() > 0) {
-                leao.setNome(nome);
-            }
-            System.out.println("Informe a cada quantas horas o leão se alimenta: ");
-            int alimentacao = scan.nextInt();
-            leao.setAlimentacao(alimentacao);
-            System.out.println("Informe a quantidade de visitantes o leão pode receber: ");
-            int visitantes = scan.nextInt();
-            leao.setVisitantes(visitantes);
-            return leao;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    public static Leao getLeao(Scanner scan) throws Exception {
-        try {
-            System.out.println("Informe o Id de alteração/exclusão: ");
-            int id = scan.nextInt();
-            Connection con = DriverManager.getConnection(url, user, password);
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM leao WHERE id = " + id);
-
-            if(!rs.next()) {
-                throw new Exception("Id inválido!");
-            }
-            return new Leao(
-                rs.getInt("id"),
-                rs.getString("nome"),
-                rs.getInt("jaula_id"),
-                rs.getString("descricao"),
-                rs.getInt("alimentacao"),
-                rs.getInt("visitantes")
-            );
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    public static void deleteLeao(Leao leao) {
+    public static void deleteLeao(int id) {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
             stm.execute("DELETE FROM leao "
-                + " WHERE id = " + leao.getId());
+                + " WHERE id = " + id);
             
-            System.out.println("\nDados excluídos com sucesso!");
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-    public static Leao idLeao(int id) throws Exception {
-        try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM leao WHERE id = " + id);
-            rs.next();
-            Leao leao = new Leao(
-                rs.getInt("id"),
-                rs.getString("nome"),
-                rs.getInt("jaula_id"),
-                rs.getString("descricao"),
-                rs.getInt("alimentacao"),
-                rs.getInt("visitantes")
-            );
-            return leao;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
         }
     }
 

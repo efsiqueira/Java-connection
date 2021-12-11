@@ -36,6 +36,11 @@ public class Animal {
         );
     }
 
+    public Animal(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     // Construtor de animal, com nome e descrição da jaula
     public Animal(
         String nome,
