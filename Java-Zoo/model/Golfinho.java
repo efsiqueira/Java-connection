@@ -97,7 +97,7 @@ public class Golfinho extends Animal {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        throw new Exception("Leão não encontrado");
+        throw new Exception("Golfinho não encontrado");
     }
 
     public static void insertGolfinho(Golfinho golfinho) {
