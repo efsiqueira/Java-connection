@@ -13,6 +13,10 @@ public class Golfinho extends Animal {
     private final static String url = "jdbc:mysql://localhost:3306/Zoologico?useTimezone=true&serverTimezone=UTC";
     private final static String user = "root";
     private final static String password = "";
+    
+    public Golfinho(int id) {
+        super(id);
+    }
 
     public Golfinho(
         int id,
@@ -149,8 +153,8 @@ public class Golfinho extends Animal {
             Statement stm = con.createStatement();
             stm.execute("UPDATE Golfinho SET "
                 + " nome = '" + golfinho.getNome() + "'"
-                + ", alimentacao = '" + golfinho.getTreinamento() + "'"
-                + "' WHERE id = " + golfinho.getId());
+                + ", treinamento = '" + golfinho.getTreinamento() + "'"
+                + " WHERE id = " + golfinho.getId());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

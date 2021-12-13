@@ -13,6 +13,7 @@ public class EditarGolfinho extends JFrame {
     JTextField tNomeGolfinho;
     JTextField tTreinamento;
     JButton bAlterar = new JButton("Alterar");
+    JButton bTreinamento = new JButton("Treinamento");
     JButton bCancelar = new JButton("Cancelar");
 
     public EditarGolfinho() {
@@ -31,6 +32,13 @@ public class EditarGolfinho extends JFrame {
         };
         bAlterar.addActionListener(alterarGolfinhoAction);
 
+        ActionListener cadastrarTreinamentoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonCadastraTActionPerformed(e);
+            }
+        };
+        bTreinamento.addActionListener(cadastrarTreinamentoAction);
+
         ActionListener cancelarGolfinhoAction = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 buttonCancelaActionPerformed(e);
@@ -48,6 +56,7 @@ public class EditarGolfinho extends JFrame {
         pane.add(lTreinamento);
         pane.add(tTreinamento);
         pane.add(bAlterar);
+        pane.add(bTreinamento);
         pane.add(bCancelar);
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,6 +76,10 @@ public class EditarGolfinho extends JFrame {
             null,
             "Dados alterados com Sucesso!"
         );
+    }
+
+    private void buttonCadastraTActionPerformed(ActionEvent e) {
+        new AdicionarTreinamento();
     }
 
     private void buttonCancelaActionPerformed(ActionEvent e) {

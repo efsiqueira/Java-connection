@@ -3,6 +3,7 @@ package view;
 
 import javax.swing.*;
 import model.Leao;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,11 +11,15 @@ public class MostrarLeao extends JFrame{
     JLabel lIdLeao;
     JLabel lNomeLeao;
     JLabel lAlimentacao;
+    JLabel lData;
+    JLabel lDetalhes;
     JLabel lVisitantes;
     JLabel lDescricaoJaula;
     JTextField tIdLeao;
     JTextField tNomeLeao;
     JTextField tAlimentacao;
+    JTextField tData;
+    JTextField tDetalhes;
     JTextField tVisitantes;
     JTextField tDescricaoJaula;
     JButton bOkLeao = new JButton("OK");
@@ -23,14 +28,18 @@ public class MostrarLeao extends JFrame{
         lIdLeao = new JLabel("Id do leão", JLabel.LEFT);
         lNomeLeao = new JLabel("Nome do leão", JLabel.LEFT);
         lAlimentacao = new JLabel("Alimentação do leão", JLabel.LEFT);
+        lData = new JLabel("Data do inicio", JLabel.LEFT);
+        lDetalhes = new JLabel("Detalhes da alimentação", JLabel.LEFT);
         lVisitantes = new JLabel("Visitantes do leão", JLabel.LEFT);
         lDescricaoJaula = new JLabel("Descrição da jaula", JLabel.LEFT);
 
-        tIdLeao = new JTextField(15);
-        tNomeLeao = new JTextField(15);
-        tAlimentacao = new JTextField(15);
-        tVisitantes = new JTextField(15);
-        tDescricaoJaula = new JTextField(15);
+        tIdLeao = new JTextField(25);
+        tNomeLeao = new JTextField(25);
+        tAlimentacao = new JTextField(25);
+        tData = new JTextField(25);
+        tDetalhes = new JTextField(25);
+        tVisitantes = new JTextField(25);
+        tDescricaoJaula = new JTextField(25);
         
         ActionListener okLeaoAction = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,6 +57,10 @@ public class MostrarLeao extends JFrame{
         pane.add(tNomeLeao);
         pane.add(lAlimentacao);
         pane.add(tAlimentacao);
+        pane.add(lData);
+        pane.add(tData);
+        pane.add(lDetalhes);
+        pane.add(tDetalhes);
         pane.add(lVisitantes);
         pane.add(tVisitantes);
         pane.add(lDescricaoJaula);
@@ -67,7 +80,7 @@ public class MostrarLeao extends JFrame{
         tDescricaoJaula.setEditable(false);
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(195,305);
+        this.setSize(305,400);
         this.setVisible(true);
     }
 
