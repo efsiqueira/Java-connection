@@ -16,6 +16,10 @@ public class Leao extends Animal {
     private final static String user = "root";
     private final static String password = "";
 
+    public Leao(int id) {
+        super(id);
+    }
+
     public Leao(
         int id,
         String nome,

@@ -8,6 +8,10 @@ public class Animal {
     private String nome;
     private Jaula jaula;
 
+    public Animal(int id) {
+        this.id = id;
+    }
+
     public Animal(
         int id,
         String nome,

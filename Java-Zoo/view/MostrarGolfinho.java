@@ -20,7 +20,7 @@ public class MostrarGolfinho extends JFrame {
     public MostrarGolfinho(Golfinho golfinho) {
         lIdGolfinho = new JLabel("Id do golfinho", JLabel.LEFT);
         lNomeGolfinho = new JLabel("Nome do golfinho", JLabel.LEFT);
-        lTreinamento = new JLabel("Alimentação do golfinho", JLabel.LEFT);
+        lTreinamento = new JLabel("Treinamento do golfinho", JLabel.LEFT);
         lDescricaoJaula = new JLabel("Descrição da jaula", JLabel.LEFT);
 
         tIdGolfinho = new JTextField(15);

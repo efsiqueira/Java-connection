@@ -15,6 +15,7 @@ public class EditarLeao extends JFrame {
     JTextField tAlimentacao;
     JTextField tVisitantes;
     JButton bAlterar = new JButton("Alterar");
+    JButton bAlimentacao = new JButton("Alimentação");
     JButton bCancelar = new JButton("Cancelar");
 
     public EditarLeao() {
@@ -23,10 +24,10 @@ public class EditarLeao extends JFrame {
         lAlimentacao = new JLabel("Alimentação do leão", JLabel.LEFT);
         lVisitantes = new JLabel("Visitantes do leão", JLabel.LEFT);
 
-        tIdLeao = new JTextField(20);
-        tNomeLeao = new JTextField(20);
-        tAlimentacao = new JTextField(20);
-        tVisitantes = new JTextField(20);
+        tIdLeao = new JTextField(25);
+        tNomeLeao = new JTextField(25);
+        tAlimentacao = new JTextField(25);
+        tVisitantes = new JTextField(25);
 
         ActionListener alterarLeaoAction = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -35,12 +36,19 @@ public class EditarLeao extends JFrame {
         };
         bAlterar.addActionListener(alterarLeaoAction);
 
+        ActionListener alimLeaoAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonAlimentacaoActionPerformed(e);
+            }
+        };
+        bAlimentacao.addActionListener(alimLeaoAction);
+
         ActionListener cancelarLeaoAction = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 buttonCancelaActionPerformed(e);
             }
         };
-        bAlterar.addActionListener(cancelarLeaoAction);
+        bCancelar.addActionListener(cancelarLeaoAction);
 
         Container pane = this.getContentPane();
         pane.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -54,10 +62,11 @@ public class EditarLeao extends JFrame {
         pane.add(lVisitantes);
         pane.add(tVisitantes);
         pane.add(bAlterar);
+        pane.add(bAlimentacao);
         pane.add(bCancelar);
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(250, 260);
+        this.setSize(300, 300);
         this.setVisible(true);
 
     }
@@ -75,6 +84,10 @@ public class EditarLeao extends JFrame {
             null,
             "Dados alterados com Sucesso!"
         );
+    }
+
+    private void buttonAlimentacaoActionPerformed(ActionEvent e) {
+        new AdicionarAlimentacao();
     }
 
     private void buttonCancelaActionPerformed(ActionEvent e) {
